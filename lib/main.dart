@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   return runApp(MaterialApp(
@@ -29,10 +30,13 @@ class HomeScreen extends StatelessWidget {
             size: 20,
           ),
           DateContainer,
-          TextBuilder(
-            text: "تاريخ اليوم",
-            color: Colors.grey,
-            size: 20,
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: TextBuilder(
+              text: "تاريخ اليوم",
+              color: Colors.grey,
+              size: 20,
+            ),
           ),
           DateContainer,
           Padding(
@@ -45,7 +49,14 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          Text("العمر هو "),
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: TextBuilder(
+              text: "العمر هو",
+              color: Colors.grey,
+              size: 20,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -54,7 +65,14 @@ class HomeScreen extends StatelessWidget {
               DateBox(type: "السنين", num: 20),
             ],
           ),
-          Text("يوم الميلاد القادم في "),
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: TextBuilder(
+              text: "يوم الميلاد القادم هو",
+              color: Colors.grey,
+              size: 20,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -82,12 +100,22 @@ Widget Calendar_icon = Icon(Icons.calendar_today, color: Colors.orange);
 
 Widget DateContainer = Container(
     decoration: BoxDecoration(
-        color: Colors.white, border: Border.all(color: Colors.orange)),
+        color: Colors.white,
+        border: Border.all(color: Colors.orange),
+        borderRadius: BorderRadius.circular(2)),
     child: Padding(
       padding: const EdgeInsets.all(12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Calendar_icon, Text("1-1-2001")],
+        children: [
+          Calendar_icon,
+          TextBuilder(
+            text: '08-01-2001',
+            size: 15,
+            weight: FontWeight.w400,
+            color: Colors.black,
+          )
+        ],
       ),
     ));
 
@@ -98,13 +126,20 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        child: Text(ButtonText.toString()),
+        child: Center(
+          child: Text(
+            ButtonText.toString(),
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
         onPressed: () {
           debugPrint(onPressedText.toString());
         },
         style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(),
             primary: Colors.orange,
-            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 13)));
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 13)));
   }
 }
 
@@ -121,11 +156,25 @@ class DateBox extends StatelessWidget {
           Container(
               width: 90,
               color: Colors.orange,
-              child: Center(child: Text(type.toString()))),
+              child: Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Text(
+                  type.toString(),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+              ))),
           Container(
               width: 90,
               color: Colors.white,
-              child: Center(child: Text(num.toString())))
+              child: Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Text(
+                  num.toString(),
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+              )))
         ],
       ),
     );
