@@ -7,12 +7,13 @@ void main() {
     home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
+          centerTitle: true,
           title: TextBuilder(
               text: "حاسبة العمر",
               weight: FontWeight.w600,
               color: Colors.black),
         ),
-        body: HomeScreen()),
+        body: SingleChildScrollView(child: HomeScreen())),
   ));
 }
 
@@ -29,33 +30,27 @@ class HomeScreen extends StatelessWidget {
             color: Colors.grey,
             size: 20,
           ),
-          DateContainer,
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: TextBuilder(
-              text: "تاريخ اليوم",
-              color: Colors.grey,
-              size: 20,
-            ),
+          BirthDayField,
+          EmptyBox(),
+          TextBuilder(
+            text: "تاريخ اليوم",
+            color: Colors.grey,
+            size: 20,
           ),
-          DateContainer,
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Button(ButtonText: "امسح", onPressedText: "ضغط امسح"),
-                Button(ButtonText: "احسب", onPressedText: "ضغط احسب")
-              ],
-            ),
+          TodayField,
+          EmptyBox(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Button(ButtonText: "امسح", onPressedText: "ضغط امسح"),
+              Button(ButtonText: "احسب", onPressedText: "ضغط احسب")
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: TextBuilder(
-              text: "العمر هو",
-              color: Colors.grey,
-              size: 20,
-            ),
+          EmptyBox(),
+          TextBuilder(
+            text: "العمر هو",
+            color: Colors.grey,
+            size: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,13 +60,11 @@ class HomeScreen extends StatelessWidget {
               DateBox(type: "السنين", num: 20),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: TextBuilder(
-              text: "يوم الميلاد القادم هو",
-              color: Colors.grey,
-              size: 20,
-            ),
+          EmptyBox(),
+          TextBuilder(
+            text: "يوم الميلاد القادم هو",
+            color: Colors.grey,
+            size: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,28 +89,52 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Widget Calendar_icon = Icon(Icons.calendar_today, color: Colors.orange);
+// Widget Calendar_icon = Icon(Icons.date_range, color: Colors.orange);
+DateContainer BirthDayField = DateContainer(hintText: "تاريخ الميلاد");
+DateContainer TodayField = DateContainer(hintText: "تاريخ اليوم");
 
-Widget DateContainer = Container(
-    decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.orange),
-        borderRadius: BorderRadius.circular(2)),
-    child: Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Calendar_icon,
-          TextBuilder(
-            text: '08-01-2001',
-            size: 15,
-            weight: FontWeight.w400,
-            color: Colors.black,
-          )
-        ],
-      ),
-    ));
+class DateContainer extends StatelessWidget {
+  String? hintText;
+  DateContainer({this.hintText});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 500,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.orange),
+            borderRadius: BorderRadius.circular(2)),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Calendar_icon,
+              Flexible(
+                  child: DateText(
+                hintText: hintText,
+              )),
+              // TextBuilder(
+              //   text: '08-01-2001',
+              //   size: 15,
+              //   weight: FontWeight.w400,
+              //   color: Colors.black,
+              // )
+              // SizedBox(
+              //   width: 300,
+              //   child: TextField(
+              //     keyboardType: TextInputType.number,
+              //     decoration: InputDecoration(
+              //       border: OutlineInputBorder(),
+              //       hintText: 'Enter a Date please',
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ));
+  }
+}
 
 class Button extends StatelessWidget {
   String? ButtonText;
@@ -193,5 +210,32 @@ class TextBuilder extends StatelessWidget {
       text.toString(),
       style: TextStyle(fontSize: size, color: color, fontWeight: weight),
     );
+  }
+}
+
+class EmptyBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(height: 20);
+  }
+}
+
+class DateText extends StatelessWidget {
+  TextEditingController editDate = TextEditingController();
+  String? hintText;
+  DateText({this.hintText});
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+        controller: editDate,
+        textAlign: TextAlign.right,
+        decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: TextStyle(color: Colors.black, fontSize: 17),
+            icon: Icon(
+              Icons.date_range,
+              color: Colors.orange,
+            )));
   }
 }
