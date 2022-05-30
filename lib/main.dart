@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   return runApp(MaterialApp(
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ],
+    supportedLocales: [
+      Locale('ar', 'EG'),
+    ],
     theme: ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.green,
@@ -97,8 +106,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 // Widget Calendar_icon = Icon(Icons.date_range, color: Colors.orange);
-DateContainer BirthDayField = DateContainer(hintText: "تاريخ الميلاد");
-DateContainer TodayField = DateContainer(hintText: "تاريخ اليوم");
+DateContainer BirthDayField = DateContainer(hintText: "أدخل تاريخ الميلاد");
+DateContainer TodayField = DateContainer(hintText: "أدخل تاريخ اليوم");
 
 class DateContainer extends StatelessWidget {
   String? hintText;
@@ -240,17 +249,19 @@ class DateText extends StatelessWidget {
       decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 17),
+          hintStyle: TextStyle(fontSize: 16),
           icon: Icon(
             Icons.date_range,
             color: Theme.of(context).primaryColor,
           )),
       onTap: () {
         showDatePicker(
+                locale: const Locale("ar", "EG"),
                 cancelText: "إلغاء",
                 confirmText: "تم",
                 helpText: "اختر التاريخ",
                 fieldLabelText: "أدخل التاريخ",
+                fieldHintText: " / / ",
                 errorFormatText: "تنسيق خاطئ",
                 context: context,
                 initialDate: DateTime.now(),
