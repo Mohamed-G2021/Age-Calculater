@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 void main() {
   return runApp(MaterialApp(
     theme: ThemeData(
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       primaryColor: Colors.green,
       primarySwatch: Colors.lightGreen,
     ),
@@ -106,7 +106,6 @@ class DateContainer extends StatelessWidget {
     return Container(
         width: 500,
         decoration: BoxDecoration(
-            color: Colors.white,
             border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(2)),
         child: Padding(
@@ -189,7 +188,6 @@ class DateBox extends StatelessWidget {
               ))),
           Container(
               width: 90,
-              color: Colors.white,
               child: Center(
                   child: Padding(
                 padding: const EdgeInsets.all(3.0),
@@ -233,12 +231,13 @@ class DateText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+        readOnly: true,
         controller: editDate,
         textAlign: TextAlign.right,
         decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: TextStyle(color: Colors.black, fontSize: 17),
+            hintStyle: TextStyle(fontSize: 17),
             icon: Icon(
               Icons.date_range,
               color: Theme.of(context).primaryColor,
