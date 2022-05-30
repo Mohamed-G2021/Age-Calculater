@@ -3,10 +3,15 @@ import 'package:flutter/rendering.dart';
 
 void main() {
   return runApp(MaterialApp(
+    theme: ThemeData(
+      brightness: Brightness.light,
+      primaryColor: Colors.green,
+      primarySwatch: Colors.lightGreen,
+    ),
     debugShowCheckedModeBanner: false,
     home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.green,
           centerTitle: true,
           title: TextBuilder(
               text: "حاسبة العمر",
@@ -102,7 +107,7 @@ class DateContainer extends StatelessWidget {
         width: 500,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: Colors.orange),
+            border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(2)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -155,7 +160,7 @@ class Button extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(),
-            primary: Colors.orange,
+            primary: Theme.of(context).primaryColor,
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 13)));
   }
 }
@@ -167,12 +172,13 @@ class DateBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.orange)),
+      decoration: BoxDecoration(
+          border: Border.all(color: Theme.of(context).primaryColor)),
       child: Column(
         children: [
           Container(
               width: 90,
-              color: Colors.orange,
+              color: Theme.of(context).primaryColor,
               child: Center(
                   child: Padding(
                 padding: const EdgeInsets.all(3.0),
@@ -235,7 +241,7 @@ class DateText extends StatelessWidget {
             hintStyle: TextStyle(color: Colors.black, fontSize: 17),
             icon: Icon(
               Icons.date_range,
-              color: Colors.orange,
+              color: Theme.of(context).primaryColor,
             )));
   }
 }
