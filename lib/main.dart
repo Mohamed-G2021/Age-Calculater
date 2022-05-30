@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 void main() {
   return runApp(MaterialApp(
     theme: ThemeData(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       primaryColor: Colors.green,
       primarySwatch: Colors.lightGreen,
     ),
@@ -18,7 +18,7 @@ void main() {
               weight: FontWeight.w600,
               color: Colors.black),
         ),
-        body: SingleChildScrollView(child: HomeScreen())),
+        body: HomeScreen()),
   ));
 }
 
@@ -27,68 +27,70 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TextBuilder(
-            text: "تاريخ الميلاد",
-            color: Colors.grey,
-            size: 20,
-          ),
-          BirthDayField,
-          EmptyBox(),
-          TextBuilder(
-            text: "تاريخ اليوم",
-            color: Colors.grey,
-            size: 20,
-          ),
-          TodayField,
-          EmptyBox(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Button(ButtonText: "امسح", onPressedText: "ضغط امسح"),
-              Button(ButtonText: "احسب", onPressedText: "ضغط احسب")
-            ],
-          ),
-          EmptyBox(),
-          TextBuilder(
-            text: "العمر هو",
-            color: Colors.grey,
-            size: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DateBox(type: "الأيام", num: 29),
-              DateBox(type: "الشهور", num: 4),
-              DateBox(type: "السنين", num: 20),
-            ],
-          ),
-          EmptyBox(),
-          TextBuilder(
-            text: "يوم الميلاد القادم هو",
-            color: Colors.grey,
-            size: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DateBox(
-                type: "الأيام",
-                num: 15,
-              ),
-              DateBox(
-                type: "الشهور",
-                num: 8,
-              ),
-              DateBox(
-                type: "السنين",
-                num: 0,
-              ),
-            ],
-          )
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          //    crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextBuilder(
+              text: "تاريخ الميلاد",
+              color: Colors.grey,
+              size: 20,
+            ),
+            BirthDayField,
+            EmptyBox(),
+            TextBuilder(
+              text: "تاريخ اليوم",
+              color: Colors.grey,
+              size: 20,
+            ),
+            TodayField,
+            EmptyBox(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Button(ButtonText: "امسح", onPressedText: "ضغط امسح"),
+                Button(ButtonText: "احسب", onPressedText: "ضغط احسب")
+              ],
+            ),
+            EmptyBox(),
+            TextBuilder(
+              text: "العمر هو",
+              color: Colors.grey,
+              size: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DateBox(type: "الأيام", num: 29),
+                DateBox(type: "الشهور", num: 4),
+                DateBox(type: "السنين", num: 20),
+              ],
+            ),
+            EmptyBox(),
+            TextBuilder(
+              text: "يوم الميلاد القادم هو",
+              color: Colors.grey,
+              size: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DateBox(
+                  type: "الأيام",
+                  num: 15,
+                ),
+                DateBox(
+                  type: "الشهور",
+                  num: 8,
+                ),
+                DateBox(
+                  type: "السنين",
+                  num: 0,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -103,8 +105,9 @@ class DateContainer extends StatelessWidget {
   DateContainer({this.hintText});
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
-        width: 500,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(2)),
@@ -231,16 +234,27 @@ class DateText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-        readOnly: true,
-        controller: editDate,
-        textAlign: TextAlign.right,
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-            hintStyle: TextStyle(fontSize: 17),
-            icon: Icon(
-              Icons.date_range,
-              color: Theme.of(context).primaryColor,
-            )));
+      readOnly: true,
+      controller: editDate,
+      textAlign: TextAlign.right,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: hintText,
+          hintStyle: TextStyle(fontSize: 17),
+          icon: Icon(
+            Icons.date_range,
+            color: Theme.of(context).primaryColor,
+          )),
+      onTap: () {
+        showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1900),
+                lastDate: DateTime(2100))
+            .then((date) {
+          debugPrint(date.toString());
+        });
+      },
+    );
   }
 }
