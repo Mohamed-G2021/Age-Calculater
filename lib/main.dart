@@ -247,6 +247,11 @@ class DateText extends StatelessWidget {
           )),
       onTap: () {
         showDatePicker(
+                cancelText: "إلغاء",
+                confirmText: "تم",
+                helpText: "اختر التاريخ",
+                fieldLabelText: "أدخل التاريخ",
+                errorFormatText: "تنسيق خاطئ",
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(1900),
